@@ -45,20 +45,4 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-/*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("PickUpAble"))
-        {
-            Destroy(other.gameObject);
-        }
-
-        if (other.gameObject.CompareTag("PowerUp"))
-        {
-            Debug.Log("Has recogido un power up!");
-            Destroy(other.gameObject);
-        }
-    }
-*/
 }
