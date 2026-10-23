@@ -20,3 +20,4 @@
 *.VC.db
 .DS_Store
 Thumbs.db
+.vs/
