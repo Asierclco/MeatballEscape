@@ -31,6 +31,7 @@ public class MovingEnemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("Level1");
+        if (other.gameObject.CompareTag("Player"))
+            SceneManager.LoadScene("Level1");
     }
 }
