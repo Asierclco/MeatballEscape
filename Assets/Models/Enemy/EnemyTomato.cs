@@ -34,7 +34,7 @@ public class EnemyTomato : MonoBehaviour
     private void FixedUpdate()
     {
         if (jugador == null) return;
-        Debug.Log("Has entered:" + hasEntered);
+        // Debug.Log("Has entered:" + hasEntered);
         
         if (hasEntered)
         {
@@ -56,7 +56,7 @@ public class EnemyTomato : MonoBehaviour
         }
         else
         {
-            Debug.Log("Esta fuera");
+            // Debug.Log("Esta fuera");
             velocidad = 0.0f;
         }
     }
