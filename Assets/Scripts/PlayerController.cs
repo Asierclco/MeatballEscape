@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public Vector3 respawnPoint;
     public float fallLimit;
+    public float maxSpeed;
 
     private Rigidbody rb;
     private float jumpForce;
@@ -43,6 +44,11 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
+    private void FixedUpdate()
+    {
+        LimitVelocity();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         isOnGround = true;
@@ -51,5 +57,18 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         isOnGround = false;
+    }
+
+    private void LimitVelocity()
+    {
+        Vector3 horizontal = new Vector3(rb.linearVelocity.x,
+                                         0,
+                                         rb.linearVelocity.z);
+
+        horizontal = Vector3.ClampMagnitude(horizontal, maxSpeed);
+
+        rb.linearVelocity = new Vector3(horizontal.x,
+                                        rb.linearVelocity.y,
+                                        horizontal.z);
     }
 }
