@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 respawnPoint;
     public float fallLimit;
     public float maxSpeed;
+    public float powerUpScale;
 
     private Rigidbody rb;
     private float jumpForce;
@@ -52,11 +53,35 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         isOnGround = true;
+        if (collision.gameObject.CompareTag("Pickupable"))
+        {
+            collision.gameObject.transform.SetParent(transform, true);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            transform.localScale = new Vector3(transform.localScale.x / powerUpScale,
+                                               transform.localScale.y / powerUpScale,
+                                               transform.localScale.z / powerUpScale);
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         isOnGround = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PowerUP"))
+        {
+            Destroy(other.gameObject);
+            transform.localScale = new Vector3(transform.localScale.x * powerUpScale,
+                                               transform.localScale.y * powerUpScale,
+                                               transform.localScale.z * powerUpScale);
+        }
     }
 
     private void LimitVelocity()
