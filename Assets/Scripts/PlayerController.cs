@@ -8,13 +8,14 @@ public class PlayerController : MonoBehaviour
     public float fallLimit;
     public float maxSpeed;
     public float powerUpScale;
-
+    public Transform camara;
     private Rigidbody rb;
     private float jumpForce;
     private bool isOnGround;
 
     void Start()
     {
+        Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         respawnPoint = transform.position;
     }
@@ -30,30 +31,30 @@ public class PlayerController : MonoBehaviour
         float inputHorizontal = Input.GetAxis("Horizontal");
         float inputVertical = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isOnGround)
-            {
-                jumpForce = 65;
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+            jumpForce = 65;
         else
-        {
             jumpForce = 0;
-        }
 
-        Vector3 movement = new Vector3(inputHorizontal, jumpForce, inputVertical);
-        rb.AddForce(movement * speed);
+        // Usar forward de la cámara
+        Vector3 forward = Vector3.ProjectOnPlane(camara.forward, Vector3.up).normalized;
+        Vector3 right = Vector3.ProjectOnPlane(camara.right, Vector3.up).normalized;
+
+        Vector3 movement = right * inputHorizontal + forward * inputVertical;
+
+        movement = Vector3.ClampMagnitude(movement, 1f);
+
+        Vector3 finalMovement = new Vector3(movement.x, jumpForce, movement.z);
+
+        rb.AddForce(finalMovement * speed);
     }
 
-    private void FixedUpdate()
-    {
-        LimitVelocity();
-    }
+    private void FixedUpdate() { LimitVelocity(); }
 
     private void OnCollisionEnter(Collision collision)
     {
         isOnGround = true;
+
         if (collision.gameObject.CompareTag("Pickupable"))
         {
             collision.gameObject.transform.SetParent(transform, true);
@@ -65,20 +66,19 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x / powerUpScale,
                                                transform.localScale.y / powerUpScale,
                                                transform.localScale.z / powerUpScale);
+
             Destroy(collision.gameObject);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        isOnGround = false;
-    }
+    private void OnCollisionExit(Collision collision) { isOnGround = false; }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PowerUP"))
         {
             Destroy(other.gameObject);
+
             transform.localScale = new Vector3(transform.localScale.x * powerUpScale,
                                                transform.localScale.y * powerUpScale,
                                                transform.localScale.z * powerUpScale);
@@ -87,9 +87,7 @@ public class PlayerController : MonoBehaviour
 
     private void LimitVelocity()
     {
-        Vector3 horizontal = new Vector3(rb.linearVelocity.x,
-                                         0,
-                                         rb.linearVelocity.z);
+        Vector3 horizontal = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
         horizontal = Vector3.ClampMagnitude(horizontal, maxSpeed);
 
