@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isOnGround = true;
+        CheckGround(collision);
 
         if (collision.gameObject.CompareTag("Pickupable"))
         {
@@ -71,7 +71,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision) { CheckGround(collision); }
+
     private void OnCollisionExit(Collision collision) { isOnGround = false; }
+
+    private void CheckGround(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Angle(contact.normal, Vector3.up) < 60f)
+            {
+                isOnGround = true;
+                return;
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -88,11 +102,7 @@ public class PlayerController : MonoBehaviour
     private void LimitVelocity()
     {
         Vector3 horizontal = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
         horizontal = Vector3.ClampMagnitude(horizontal, maxSpeed);
-
-        rb.linearVelocity = new Vector3(horizontal.x,
-                                        rb.linearVelocity.y,
-                                        horizontal.z);
+        rb.linearVelocity = new Vector3(horizontal.x, rb.linearVelocity.y, horizontal.z);
     }
 }
