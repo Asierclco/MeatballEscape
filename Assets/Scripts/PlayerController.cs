@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float jumpForce;
     private bool isOnGround;
+    public AudioSource hitSound;
 
     void Start()
     {
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        hitSound.Play();
         CheckGround(collision);
 
         if (collision.gameObject.CompareTag("Pickupable"))
