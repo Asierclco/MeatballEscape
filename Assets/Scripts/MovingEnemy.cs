@@ -13,13 +13,13 @@ public class MovingEnemy : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.x > 6)
+        if (transform.position.x > 4)
         {
             Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
             GetComponent<Renderer>().material.color = newColor;
             velocity = -velocity;
         }
-        else if (transform.position.x < -8)
+        else if (transform.position.x < -4)
         {
             Color newColor2 = new Color(Random.value, Random.value, Random.value, 1.0f);
             GetComponent<Renderer>().material.color = newColor2;
