@@ -1,0 +1,196 @@
+
+using UnityEngine;
+using System.Collections.Generic;
+
+public class Pelotanivel2 : MonoBehaviour
+{
+    public float speed;
+    public Vector3 respawnPoint;
+    public float fallLimit;
+    public float maxSpeed;
+    public float powerUpScale;
+    public Transform camara;
+
+    [Header("Aceleracion carreteras")]
+    public float roadAcceleration = 3f;
+    public float roadMaxSpeed = 25f;
+
+    [Header("Aceleracion ultima rampa")]
+    public float finalRampAcceleration = 7f;
+    public float finalRampMaxSpeed = 35f;
+
+    private Rigidbody rb;
+    private float jumpForce;
+    private bool isOnGround;
+
+    private HashSet<GameObject> roads = new HashSet<GameObject>();
+    private HashSet<GameObject> finalRamps = new HashSet<GameObject>();
+
+    void Start()
+    {
+        Cursor.visible = false;
+        rb = GetComponent<Rigidbody>();
+        respawnPoint = transform.position;
+    }
+
+    void Update()
+    {
+        if (transform.position.y < fallLimit)
+        {
+            rb.linearVelocity = Vector3.zero;
+            transform.position = respawnPoint;
+        }
+
+        float inputHorizontal = Input.GetAxis("Horizontal");
+        float inputVertical = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+            jumpForce = 65;
+        else
+            jumpForce = 0;
+
+        Vector3 forward = Vector3.ProjectOnPlane(camara.forward, Vector3.up).normalized;
+        Vector3 right = Vector3.ProjectOnPlane(camara.right, Vector3.up).normalized;
+
+        Vector3 movement = right * inputHorizontal + forward * inputVertical;
+
+        movement = Vector3.ClampMagnitude(movement, 1f);
+
+        Vector3 finalMovement = new Vector3(movement.x, jumpForce, movement.z);
+
+        rb.AddForce(finalMovement * speed);
+    }
+
+    private void FixedUpdate()
+    {
+        ApplySurfaceAcceleration();
+        LimitVelocity();
+    }
+
+    private void ApplySurfaceAcceleration()
+    {
+        float acceleration = 0f;
+
+        if (roads.Count > 0)
+            acceleration = roadAcceleration;
+
+        if (finalRamps.Count > 0)
+            acceleration = finalRampAcceleration;
+
+        Vector3 direction = new Vector3(
+            rb.linearVelocity.x,
+            0,
+            rb.linearVelocity.z
+        );
+
+        if (acceleration > 0 && direction.sqrMagnitude > 0.01f)
+        {
+            rb.AddForce(
+                direction.normalized * acceleration,
+                ForceMode.Acceleration
+            );
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        CheckGround(collision);
+        RegisterSurface(collision.gameObject);
+
+        if (collision.gameObject.CompareTag("Pickupable"))
+        {
+            collision.gameObject.transform.SetParent(transform, true);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            transform.localScale = new Vector3(
+                transform.localScale.x / powerUpScale,
+                transform.localScale.y / powerUpScale,
+                transform.localScale.z / powerUpScale
+            );
+
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        CheckGround(collision);
+        RegisterSurface(collision.gameObject);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isOnGround = false;
+
+        roads.Remove(collision.gameObject);
+        finalRamps.Remove(collision.gameObject);
+    }
+
+    private void RegisterSurface(GameObject obj)
+    {
+        if (obj.CompareTag("Road"))
+        {
+            roads.Add(obj);
+        }
+
+        if (obj.CompareTag("FinalRamp"))
+        {
+            finalRamps.Add(obj);
+        }
+    }
+
+    private void CheckGround(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Angle(contact.normal, Vector3.up) < 60f)
+            {
+                isOnGround = true;
+                return;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PowerUP"))
+        {
+            Destroy(other.gameObject);
+
+            transform.localScale = new Vector3(
+                transform.localScale.x * powerUpScale,
+                transform.localScale.y * powerUpScale,
+                transform.localScale.z * powerUpScale
+            );
+        }
+    }
+
+    private void LimitVelocity()
+    {
+        float currentMaxSpeed = maxSpeed;
+
+        if (roads.Count > 0)
+            currentMaxSpeed = roadMaxSpeed;
+
+        if (finalRamps.Count > 0)
+            currentMaxSpeed = finalRampMaxSpeed;
+
+        Vector3 horizontal = new Vector3(
+            rb.linearVelocity.x,
+            0,
+            rb.linearVelocity.z
+        );
+
+        horizontal = Vector3.ClampMagnitude(horizontal, currentMaxSpeed);
+
+        rb.linearVelocity = new Vector3(
+            horizontal.x,
+            rb.linearVelocity.y,
+            horizontal.z
+        );
+    }
+}
+
