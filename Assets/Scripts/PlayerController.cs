@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public float speedPowerUpTime;
     public AudioSource hitSound;
 
+    private bool hasJumpBoost = false;
+
     void Start()
     {
         Cursor.visible = false;
@@ -37,7 +39,10 @@ public class PlayerController : MonoBehaviour
         float inputVertical = Input.GetAxis("Vertical");
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-            jumpForce = 65;
+            if (hasJumpBoost)
+                jumpForce = 65*4;
+            else
+                jumpForce = 65;
         else
             jumpForce = 0;
 
@@ -66,7 +71,7 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.transform.SetParent(transform, true);
             collision.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
-        // Como el ketchup
+        // Ketchup
         if (collision.gameObject.CompareTag("SpeedBoost"))
         {
             
@@ -75,6 +80,17 @@ public class PlayerController : MonoBehaviour
             maxSpeed *= 2.0f;
 
             Invoke("ResetSpeed", speedPowerUpTime);
+            Destroy(collision.gameObject, speedPowerUpTime);
+        }
+        // Muelle
+        if (collision.gameObject.CompareTag("JumpBoost"))
+        {
+            hasJumpBoost = true;
+            collision.gameObject.transform.SetParent(transform, true);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+            maxSpeed *= 2.0f;
+
+            Invoke("ResetJump", speedPowerUpTime);
             Destroy(collision.gameObject, speedPowerUpTime);
         }
 
@@ -89,6 +105,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ResetSpeed() { maxSpeed = startMaxSpeed; }
+    private void ResetJump() { hasJumpBoost = false; }
 
     private void OnCollisionStay(Collision collision) { CheckGround(collision); }
 

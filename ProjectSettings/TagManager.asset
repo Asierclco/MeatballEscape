@@ -8,6 +8,7 @@ TagManager:
   - PowerUP
   - Enemy
   - SpeedBoost
+  - JumpBoost
   layers:
   - Default
   - TransparentFX
