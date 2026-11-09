@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,18 +8,23 @@ public class PlayerController : MonoBehaviour
     public Vector3 respawnPoint;
     public float fallLimit;
     public float maxSpeed;
+    private float startMaxSpeed;
     public float powerUpScale;
     public Transform camara;
     private Rigidbody rb;
     private float jumpForce;
     private bool isOnGround;
+    public float speedPowerUpTime;
     public AudioSource hitSound;
+
+    private bool hasJumpBoost = false;
 
     void Start()
     {
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         respawnPoint = transform.position;
+        startMaxSpeed = maxSpeed;
     }
 
     void Update()
@@ -33,7 +39,10 @@ public class PlayerController : MonoBehaviour
         float inputVertical = Input.GetAxis("Vertical");
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-            jumpForce = 65;
+            if (hasJumpBoost)
+                jumpForce = 65*4;
+            else
+                jumpForce = 65;
         else
             jumpForce = 0;
 
@@ -62,6 +71,28 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.transform.SetParent(transform, true);
             collision.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
+        // Ketchup
+        if (collision.gameObject.CompareTag("SpeedBoost"))
+        {
+            
+            collision.gameObject.transform.SetParent(transform, true);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+            maxSpeed *= 2.0f;
+
+            Invoke("ResetSpeed", speedPowerUpTime);
+            Destroy(collision.gameObject, speedPowerUpTime);
+        }
+        // Muelle
+        if (collision.gameObject.CompareTag("JumpBoost"))
+        {
+            hasJumpBoost = true;
+            collision.gameObject.transform.SetParent(transform, true);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+            maxSpeed *= 2.0f;
+
+            Invoke("ResetJump", speedPowerUpTime);
+            Destroy(collision.gameObject, speedPowerUpTime);
+        }
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -72,6 +103,9 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    private void ResetSpeed() { maxSpeed = startMaxSpeed; }
+    private void ResetJump() { hasJumpBoost = false; }
 
     private void OnCollisionStay(Collision collision) { CheckGround(collision); }
 
