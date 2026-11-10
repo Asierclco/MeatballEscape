@@ -7,14 +7,16 @@ public class CoinLogic : MonoBehaviour
 {
     public TMP_Text textUI;
     private uint puntos = 0;
+    public AudioSource collectSound;
 
     private void OnTriggerEnter(Collider other)
     {
         puntos = Convert.ToUInt32(textUI.text);
         puntos++;
-
         textUI.text = puntos.ToString();
-        
+
+        collectSound.Play();
+
         Destroy(gameObject);
     }
 }
