@@ -8,16 +8,17 @@ public class PlayerController : MonoBehaviour
     public Vector3 respawnPoint;
     public float fallLimit;
     public float maxSpeed;
-    private float startMaxSpeed;
     public float powerUpScale;
     public Transform camara;
-    private Rigidbody rb;
-    private float jumpForce;
-    private bool isOnGround;
     public float speedPowerUpTime;
     public AudioSource hitSound;
+    public float jumpPowerUpForce;
 
     private bool hasJumpBoost = false;
+    private float jumpForce;
+    private Rigidbody rb;
+    private bool isOnGround;
+    private float startMaxSpeed;
 
     void Start()
     {
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
             if (hasJumpBoost)
-                jumpForce = 65*6;
+                jumpForce = 65 * jumpPowerUpForce;
             else
                 jumpForce = 65;
         else

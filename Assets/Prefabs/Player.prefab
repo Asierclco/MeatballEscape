@@ -447,6 +447,7 @@ MonoBehaviour:
   camara: {fileID: 170061749704604181}
   speedPowerUpTime: 5
   hitSound: {fileID: 6829399452715655439}
+  jumpPowerUpForce: 4
 --- !u!135 &2679481750275074399
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -1300,6 +1300,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6199976832252141208, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
+      propertyPath: jumpPowerUpForce
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8548462171954007545, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.128
