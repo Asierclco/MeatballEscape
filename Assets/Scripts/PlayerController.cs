@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
             if (hasJumpBoost)
-                jumpForce = 65*4;
+                jumpForce = 65*6;
             else
                 jumpForce = 65;
         else
