@@ -11,8 +11,12 @@ public class PlayerController : MonoBehaviour
     public float powerUpScale;
     public Transform camara;
     public float speedPowerUpTime;
-    public AudioSource hitSound;
     public float jumpPowerUpForce;
+
+    public AudioSource hitSound;
+    public AudioSource hurtSound;
+    public AudioSource speedPowerUpSound;
+    public AudioSource jumpPowerUpSound;
 
     private bool hasJumpBoost = false;
     private float jumpForce;
@@ -75,7 +79,7 @@ public class PlayerController : MonoBehaviour
         // Ketchup
         if (collision.gameObject.CompareTag("SpeedBoost"))
         {
-            
+            speedPowerUpSound.Play();
             collision.gameObject.transform.SetParent(transform, true);
             collision.gameObject.GetComponent<BoxCollider>().enabled = false;
             maxSpeed *= 2.0f;
@@ -86,6 +90,7 @@ public class PlayerController : MonoBehaviour
         // Muelle
         if (collision.gameObject.CompareTag("JumpBoost"))
         {
+            jumpPowerUpSound.Play();
             hasJumpBoost = true;
             collision.gameObject.transform.SetParent(transform, true);
             collision.gameObject.GetComponent<BoxCollider>().enabled = false;
@@ -100,7 +105,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x / powerUpScale,
                                                transform.localScale.y / powerUpScale,
                                                transform.localScale.z / powerUpScale);
-
+            hurtSound.Play();
             Destroy(collision.gameObject);
         }
     }
@@ -128,6 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("PowerUP"))
         {
+            speedPowerUpSound.Play();
             Destroy(other.gameObject);
 
             transform.localScale = new Vector3(transform.localScale.x * powerUpScale,

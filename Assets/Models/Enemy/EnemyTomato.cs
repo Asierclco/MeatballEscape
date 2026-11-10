@@ -20,16 +20,9 @@ public class EnemyTomato : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
-        hasEntered = ate.hasEntered;
-        Debug.Log("Has entered:" + hasEntered);
-    }
+    private void Start() { hasEntered = ate.hasEntered; }
 
-    private void LateUpdate()
-    {
-        hasEntered = ate.hasEntered;
-    }
+    private void LateUpdate() { hasEntered = ate.hasEntered; }
 
     private void FixedUpdate()
     {
