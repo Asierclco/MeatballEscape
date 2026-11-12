@@ -672,7 +672,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -966,7 +966,7 @@ MonoBehaviour:
   powerUpScale: 2
   camara: {fileID: 170061749704604181}
   speedPowerUpTime: 5
-  jumpPowerUpForce: 4
+  jumpPowerUpForce: 7
   hitSound: {fileID: 6829399452715655439}
   hurtSound: {fileID: 6240801663392424229}
   speedPowerUpSound: {fileID: 2220876567652011948}
