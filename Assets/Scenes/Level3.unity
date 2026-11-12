@@ -1592,11 +1592,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: d495a79399cf732478e99d2d1f57ff07, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 45daa2a5258b32a4eb97d1320e2b39a9, type: 2}
+      objectReference: {fileID: 2100000, guid: 8f685f85b9a40a0449bda1085330bdd0, type: 2}
     - target: {fileID: -7511558181221131132, guid: d495a79399cf732478e99d2d1f57ff07, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 45daa2a5258b32a4eb97d1320e2b39a9, type: 2}
+      objectReference: {fileID: 2100000, guid: 8f685f85b9a40a0449bda1085330bdd0, type: 2}
     - target: {fileID: 919132149155446097, guid: d495a79399cf732478e99d2d1f57ff07, type: 3}
       propertyPath: m_Name
       value: horno base
@@ -3091,11 +3091,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 58bcffb8c9b223245ac9c884942d5a47, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ae820a0d4e05f024aa255cbc693ed325, type: 2}
+      objectReference: {fileID: 2100000, guid: 8f685f85b9a40a0449bda1085330bdd0, type: 2}
     - target: {fileID: -7511558181221131132, guid: 58bcffb8c9b223245ac9c884942d5a47, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2100000, guid: ae820a0d4e05f024aa255cbc693ed325, type: 2}
+      objectReference: {fileID: 2100000, guid: 8f685f85b9a40a0449bda1085330bdd0, type: 2}
     - target: {fileID: 919132149155446097, guid: 58bcffb8c9b223245ac9c884942d5a47, type: 3}
       propertyPath: m_Name
       value: horno puerta
