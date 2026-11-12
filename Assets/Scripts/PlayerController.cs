@@ -111,14 +111,7 @@ public class PlayerController : MonoBehaviour
                                                transform.localScale.z / powerUpScale);
             hurtSound.Play();
             Destroy(collision.gameObject);
-        }
-        // Multiplicador
-        if (collision.gameObject.CompareTag("PointMultiplier"))
-        {
-            Destroy(collision.gameObject);
-            multiplierPowerUpSound.Play();
-        }
-        
+        }     
     }
 
     private void ResetSpeed() { maxSpeed = startMaxSpeed; }
@@ -142,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // PowerUPs
         if (other.CompareTag("PowerUP"))
         {
             speedPowerUpSound.Play();
@@ -150,6 +144,13 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x * powerUpScale,
                                                transform.localScale.y * powerUpScale,
                                                transform.localScale.z * powerUpScale);
+        }
+
+        // Multiplicador
+        if (other.CompareTag("PointMultiplier"))
+        {
+            Destroy(other.gameObject);
+            multiplierPowerUpSound.Play();
         }
     }
 
