@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("=== MOVIMIENTO ===")]
     public float speed;
     public Vector3 respawnPoint;
     public float fallLimit;
@@ -13,11 +14,14 @@ public class PlayerController : MonoBehaviour
     public float speedPowerUpTime;
     public float jumpPowerUpForce;
 
+    [Header("=== AUDIO ===")]
     public AudioSource hitSound;
     public AudioSource hurtSound;
     public AudioSource speedPowerUpSound;
     public AudioSource jumpPowerUpSound;
+    public AudioSource multiplierPowerUpSound;
 
+    // Globales privadas
     private bool hasJumpBoost = false;
     private float jumpForce;
     private Rigidbody rb;
@@ -99,7 +103,7 @@ public class PlayerController : MonoBehaviour
             Invoke("ResetJump", speedPowerUpTime);
             Destroy(collision.gameObject, speedPowerUpTime);
         }
-
+        // Enemigo
         if (collision.gameObject.CompareTag("Enemy"))
         {
             transform.localScale = new Vector3(transform.localScale.x / powerUpScale,
@@ -108,6 +112,13 @@ public class PlayerController : MonoBehaviour
             hurtSound.Play();
             Destroy(collision.gameObject);
         }
+        // Multiplicador
+        if (collision.gameObject.CompareTag("PointMultiplier"))
+        {
+            Destroy(collision.gameObject);
+            multiplierPowerUpSound.Play();
+        }
+        
     }
 
     private void ResetSpeed() { maxSpeed = startMaxSpeed; }

@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = true;
         cfgMenu.SetActive(isCfgActive);
     }
 
