@@ -136,7 +136,7 @@ public class Pelotanivel2 : MonoBehaviour
             roads.Add(obj);
         }
 
-        if (obj.CompareTag("FinalRamp"))
+        if (obj.CompareTag("ramapafinal"))
         {
             finalRamps.Add(obj);
         }
