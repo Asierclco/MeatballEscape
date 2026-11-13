@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("=== MOVIMIENTO ===")]
+    [Header("=== PLAYER / MOVIMIENTO ===")]
     public float speed;
     public Vector3 respawnPoint;
     public float fallLimit;
@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Transform camara;
     public float speedPowerUpTime;
     public float jumpPowerUpForce;
+    public uint vidas;
 
     [Header("=== AUDIO ===")]
     public AudioSource hitSound;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        vidas = 3;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         respawnPoint = transform.position;
@@ -106,9 +108,10 @@ public class PlayerController : MonoBehaviour
         // Enemigo
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            transform.localScale = new Vector3(transform.localScale.x / powerUpScale,
-                                               transform.localScale.y / powerUpScale,
-                                               transform.localScale.z / powerUpScale);
+            vidas--;
+            transform.localScale = new Vector3(transform.localScale.x * 0.75f,
+                                               transform.localScale.y * 0.75f,
+                                               transform.localScale.z * 0.75f);
             hurtSound.Play();
             Destroy(collision.gameObject);
         }     
@@ -138,6 +141,7 @@ public class PlayerController : MonoBehaviour
         // PowerUPs
         if (other.CompareTag("PowerUP"))
         {
+            vidas++;
             speedPowerUpSound.Play();
             Destroy(other.gameObject);
 
