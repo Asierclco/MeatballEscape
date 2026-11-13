@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Vector3 respawnPoint;
     public float fallLimit;
     public float maxSpeed;
-    public float powerUpScale;
     public Transform camara;
     public float speedPowerUpTime;
     public float jumpPowerUpForce;
@@ -147,9 +146,9 @@ public class PlayerController : MonoBehaviour
             speedPowerUpSound.Play();
             Destroy(other.gameObject);
 
-            transform.localScale = new Vector3(transform.localScale.x * powerUpScale,
-                                               transform.localScale.y * powerUpScale,
-                                               transform.localScale.z * powerUpScale);
+            transform.localScale = new Vector3(transform.localScale.x * 1.35f,
+                                               transform.localScale.y * 1.35f,
+                                               transform.localScale.z * 1.35f);
         }
 
         // Multiplicador
