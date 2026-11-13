@@ -36,8 +36,7 @@ public class LifeManager : MonoBehaviour
             VIDA3.SetActive(false);
 
             sonidoMuerte.Play();
-
-            RestartPos();
+            RestartPlayer();
 
             VIDA1.SetActive(true);
             VIDA2.SetActive(true);
@@ -45,10 +44,14 @@ public class LifeManager : MonoBehaviour
 
             player.GetComponent<PlayerController>().vidas = 3;
         }
+
+        if (player.GetComponent<PlayerController>().vidas > 3)
+            player.GetComponent<PlayerController>().vidas = 3;
     }
 
-    private void RestartPos()
+    private void RestartPlayer()
     {
+        player.GetComponent<PlayerController>().transform.localScale = new Vector3(24.87f, 24.87f, 24.87f);
         player.GetComponent<PlayerController>().transform.position = new Vector3(player.GetComponent<PlayerController>().respawnPoint.x,
                                                                                  player.GetComponent<PlayerController>().respawnPoint.y,
                                                                                  player.GetComponent<PlayerController>().respawnPoint.z);
