@@ -3954,33 +3954,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.47, y: 2.82}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1010501758 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6424836258960148521, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
-  m_PrefabInstance: {fileID: 1626907325}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1010501766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1010501758}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c9231c06b795a44b983f6a66e25cb56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Pelotanivel2
-  speed: 5
-  respawnPoint: {x: 0, y: 0, z: 0}
-  fallLimit: -20
-  maxSpeed: 10
-  powerUpScale: 2
-  camara: {fileID: 0}
-  roadAcceleration: 3
-  roadMaxSpeed: 25
-  finalRampAcceleration: 7
-  finalRampMaxSpeed: 35
 --- !u!4 &1010501773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5936388781902844563, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
@@ -6176,6 +6149,10 @@ PrefabInstance:
       propertyPath: VIDA3
       value: 
       objectReference: {fileID: 858838327}
+    - target: {fileID: 2962012526197000742, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
+      propertyPath: textUI
+      value: 
+      objectReference: {fileID: 1852632231}
     - target: {fileID: 5890427042228390738, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6227,10 +6204,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6424836258960148521, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1010501766}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 993029a2cf4baf745afe99d02a31aa4a, type: 3}
 --- !u!1001 &1633676594
 PrefabInstance:
@@ -6894,6 +6868,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc8624fed77bfb9419379218252f3f90, type: 3}
+--- !u!114 &1852632231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3454312135062503737, guid: 49ad8d8e4b494f741ba739b510f5f14b, type: 3}
+  m_PrefabInstance: {fileID: 1033285115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &1855628207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2195349015488734783, guid: 20854e86fed08724cbbce6e3415de084, type: 3}
