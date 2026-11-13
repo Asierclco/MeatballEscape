@@ -2883,7 +2883,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527571539583203248, guid: 18889ce1df65941f2a2cf64df523ed55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 64.18
+      value: 65.3
       objectReference: {fileID: 0}
     - target: {fileID: 3527571539583203248, guid: 18889ce1df65941f2a2cf64df523ed55, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2891,7 +2891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3527571539583203248, guid: 18889ce1df65941f2a2cf64df523ed55, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 75.63
+      value: 75.6
       objectReference: {fileID: 0}
     - target: {fileID: 3527571539583203248, guid: 18889ce1df65941f2a2cf64df523ed55, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2927,7 +2927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8689323716756524947, guid: 18889ce1df65941f2a2cf64df523ed55, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4037,7 +4037,7 @@ Transform:
   m_GameObject: {fileID: 1367166399}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.82, y: -2.01, z: 42.46}
+  m_LocalPosition: {x: 3.61, y: -2.01, z: 42.46}
   m_LocalScale: {x: 4.125792, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5210,9 +5210,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 212762400188926905, guid: a5294e522a8754995bf3028caa302e10, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212762400188926905, guid: a5294e522a8754995bf3028caa302e10, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: f8ec5fca14d47194e9ccea9cc0cbdae1, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1143321988520894744, guid: a5294e522a8754995bf3028caa302e10, type: 3}
       propertyPath: m_Name
       value: ramapafinal
