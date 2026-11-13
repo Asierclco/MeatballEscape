@@ -3,7 +3,6 @@ using UnityEngine;
 public class APARECERAMPA : MonoBehaviour
 {
     public GameObject RAMPA;
-    public GameObject RAMPA2;
     public GameObject MURO;
     public GameObject RECTA;
     public GameObject RECTA2;
@@ -22,7 +21,6 @@ public class APARECERAMPA : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         RAMPA.SetActive(true);
-        RAMPA2.SetActive(true);
         MURO.SetActive(true);
         RECTA.SetActive(true);
         RECTA2.SetActive(true);
