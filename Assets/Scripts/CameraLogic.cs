@@ -32,10 +32,7 @@ public class CameraLogic : MonoBehaviour
 
         float factor = 1f - Mathf.Exp(-suavizado * Time.deltaTime);
 
-        orientacionCamara = Quaternion.Slerp(orientacionCamara,
-                                             orientacionObjetivo,
-                                             factor);
-
+        orientacionCamara = Quaternion.Slerp(orientacionCamara, orientacionObjetivo, factor);
         camara.position = transform.position + orientacionCamara * distancia;
 
         camara.LookAt(transform.position, Vector3.up);

@@ -1,22 +1,17 @@
-using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class CoinLogic : MonoBehaviour
 {
-    public TMP_Text textUI;
-    private uint puntos = 0;
     public AudioSource collectSound;
 
     private void OnTriggerEnter(Collider other)
     {
-        puntos = Convert.ToUInt32(textUI.text);
-        puntos++;
-        textUI.text = puntos.ToString();
-
-        collectSound.Play();
-
-        Destroy(gameObject);
+        if (other.CompareTag("Player"))
+        {
+            if (CoinManager.Instance != null) CoinManager.Instance.AddPoints(1);
+            collectSound.Play();
+            Destroy(gameObject);
+        }
     }
 }

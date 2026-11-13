@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource speedPowerUpSound;
     public AudioSource jumpPowerUpSound;
     public AudioSource multiplierPowerUpSound;
+    public AudioSource deathSound;
 
     // Globales privadas
     private bool hasJumpBoost = false;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < fallLimit)
         {
+            deathSound.Play();
             rb.linearVelocity = Vector3.zero;
             transform.position = respawnPoint;
         }
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x * 0.75f,
                                                transform.localScale.y * 0.75f,
                                                transform.localScale.z * 0.75f);
-            hurtSound.Play();
+            if (vidas != 0) hurtSound.Play();
             Destroy(collision.gameObject);
         }     
     }
@@ -153,8 +155,11 @@ public class PlayerController : MonoBehaviour
         // Multiplicador
         if (other.CompareTag("PointMultiplier"))
         {
-            Destroy(other.gameObject);
+            if (CoinManager.Instance != null)
+                CoinManager.Instance.MultiplyPoints();
+            
             multiplierPowerUpSound.Play();
+            Destroy(other.gameObject);
         }
     }
 
