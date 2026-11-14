@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    public GameObject cfgMenu;
-    private bool isCfgActive = false;
+    public GameObject credMenu;
+    private bool isCredActive = false;
 
     private void Start()
     {
         Cursor.visible = true;
-        cfgMenu.SetActive(isCfgActive);
+        credMenu.SetActive(isCredActive);
     }
 
     public void Empezar()
@@ -23,9 +23,9 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
-    public void MostrarOpciones()
+    public void MostrarCreditos()
     {
-        isCfgActive = !isCfgActive;
-        cfgMenu.SetActive(isCfgActive);
+        isCredActive = !isCredActive;
+        credMenu.SetActive(isCredActive);
     }
 }
