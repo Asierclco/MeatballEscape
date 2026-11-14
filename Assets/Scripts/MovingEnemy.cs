@@ -13,20 +13,31 @@ public class MovingEnemy : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.x > 4)
+        float x = transform.position.x;
+
+        if (x > 4f && velocity > 0f)
         {
-            Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
-            GetComponent<Renderer>().material.color = newColor;
-            velocity = -velocity;
+            velocity = -Mathf.Abs(velocity);
+            SetRandomColor();
+            x = 4f;
         }
-        else if (transform.position.x < -4)
+        else if (x < -4f && velocity < 0f)
         {
-            Color newColor2 = new Color(Random.value, Random.value, Random.value, 1.0f);
-            GetComponent<Renderer>().material.color = newColor2;
-            velocity = -velocity;
+            velocity = Mathf.Abs(velocity);
+            SetRandomColor();
+            x = -4f;
         }
 
-        transform.Translate(velocity*Time.deltaTime, 0, 0);
+        transform.position = new Vector3(
+            x + velocity * Time.deltaTime,
+            transform.position.y,
+            transform.position.z);
+    }
+
+    private void SetRandomColor()
+    {
+        GetComponent<Renderer>().material.color =
+            new Color(Random.value, Random.value, Random.value, 1f);
     }
 
     private void OnTriggerEnter(Collider other)
