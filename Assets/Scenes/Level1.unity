@@ -5061,7 +5061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b1d27b0b903e8459ce24e6fcfd463f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndTrigger
-  NombreDelMapa: Level3
+  NombreDelMapa: Level2
 --- !u!65 &1778960520
 BoxCollider:
   m_ObjectHideFlags: 0
